@@ -1,6 +1,7 @@
+'use strict';
 
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); // eslint-disable-line no-unused-vars
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
@@ -37,8 +38,8 @@ app.post('/shopping-list', jsonParser, (req, res) => {
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
-      console.error(message);
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message); // eslint-disable-line no-console
       return res.status(400).send(message);
     }
   }
@@ -49,7 +50,7 @@ app.post('/shopping-list', jsonParser, (req, res) => {
 
 app.delete('/shopping-list/:id', (req, res) => {
   ShoppingList.delete(req.params.id);
-  console.log(`Deleted shopping list item \`${req.params.id}\``);
+  console.log(`Deleted shopping list item \`${req.params.id}\``); // eslint-disable-line no-console
   res.status(204).end();
 });
 
@@ -63,8 +64,8 @@ app.post('/recipes', jsonParser, (req, res) => {
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
-      console.error(message);
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message); // eslint-disable-line no-console
       return res.status(400).send(message);
     }
   }
@@ -72,11 +73,17 @@ app.post('/recipes', jsonParser, (req, res) => {
   res.status(201).json(item);
 });
 
+app.delete('/recipes/:id', (req, res) => {
+  Recipes.delete(req.params.id);
+  console.log(`Deleted recipe list item \`${req.params.id}\``); // eslint-disable-line no-console
+  res.status(204).end();
+});
+
 
 app.get('/recipes', (req, res) => {
   res.json(Recipes.get());
-})
+});
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+  console.log(`Your app is listening on port ${process.env.PORT || 8080}`); // eslint-disable-line no-console
 });
